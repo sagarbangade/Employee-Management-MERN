@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api/employees'; // Backend Employee routes URL
+const API_BASE_URL = 'https://employee-management-mern-g423.onrender.com/api/employees'; // Backend Employee routes URL
 
 // Interceptor to add JWT token to requests
 axios.interceptors.request.use(

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api/auth'; // Backend Auth routes URL
+const API_BASE_URL = 'https://employee-management-mern-g423.onrender.com/api/auth'; // Backend Auth routes URL
 
 export const register = async (userData) => {
     return axios.post(`${API_BASE_URL}/register`, userData);
