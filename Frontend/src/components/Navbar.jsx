@@ -36,7 +36,7 @@ const Navbar = () => {
       align="center"
       justify="space-between"
       paddingY={3}
-      paddingX={6}
+      paddingX={12}
       shadow="md"
       mb={4}
       wrap="wrap"
