@@ -37,11 +37,15 @@ const Login = () => {
   );
 
   // Responsive values
-  const boxWidth = useBreakpointValue({ base: "90%", sm: "450px", md: "500px" });
+  const boxWidth = useBreakpointValue({
+    base: "90%",
+    sm: "450px",
+    md: "500px",
+  });
   const padding = useBreakpointValue({ base: 4, sm: 6, md: 8 });
   const logoSize = useBreakpointValue({ base: "60px", sm: "70px", md: "80px" });
   const headingSize = useBreakpointValue({ base: "xl", sm: "xl", md: "2xl" });
-  
+
   // Theme colors
   const boxBg = useColorModeValue("white", "gray.800");
   const borderColor = useColorModeValue("gray.200", "gray.700");
@@ -66,7 +70,13 @@ const Login = () => {
 
   return (
     <Container centerContent minH="100vh" py="5">
-      <Flex direction="column" align="center" justify="center" minH="80vh" w="full">
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        minH="80vh"
+        w="full"
+      >
         <Box
           width={boxWidth}
           p={padding}
@@ -80,7 +90,7 @@ const Login = () => {
           <VStack spacing={5} align="center" mb={6}>
             {/* Company logo placeholder - replace with your actual logo */}
             <Image
-              src="/company-logo.png" 
+              src="/company-logo.png"
               fallback={
                 <Box
                   w={logoSize}
@@ -91,26 +101,53 @@ const Login = () => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Text fontSize="2xl" fontWeight="bold" color="white">
-                    EM
-                  </Text>
+                  <Image
+                    src="/company-logo.png"
+                    fallback={
+                      <Box
+                        w={logoSize}
+                        h={logoSize}
+                        borderRadius="md"
+                        bg="blue.500"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Image
+                          src="https://cdn-icons-png.freepik.com/256/4116/4116352.png?semt=ais_hybrid"
+                          alt="EM Icon"
+                          boxSize={logoSize}
+                        />
+                      </Box>
+                    }
+                    alt="Company Logo"
+                    boxSize={logoSize}
+                  />
                 </Box>
               }
-              alt="Company Logo" 
+              alt="Company Logo"
               boxSize={logoSize}
             />
-            
+
             <Heading size={headingSize} textAlign="center">
               Employee Portal
             </Heading>
-            
+
             <Text fontSize={{ base: "sm", md: "md" }} color="gray.500">
               Sign in to access the management system
+            </Text>
+            <Text fontSize={{ base: "sm", md: "md" }} color="gray.500">
+              Dummy: username- sagar5 password- Sagar@89289
             </Text>
           </VStack>
 
           {error && (
-            <Alert status="error" borderRadius="md" mb={4} fontSize={{ base: "sm", md: "md" }}>
+            <Alert
+              status="error"
+              borderRadius="md"
+              mb={4}
+              fontSize={{ base: "sm", md: "md" }}
+            >
               <AlertIcon />
               {error}
               <CloseButton
@@ -121,17 +158,22 @@ const Login = () => {
               />
             </Alert>
           )}
-          
+
           {loading ? (
             <Box textAlign="center" py={10}>
               <Spinner size="xl" thickness="4px" color="blue.500" />
-              <Text mt={3} fontSize="sm">Authenticating...</Text>
+              <Text mt={3} fontSize="sm">
+                Authenticating...
+              </Text>
             </Box>
           ) : (
             <form onSubmit={handleSubmit}>
               <VStack spacing={4} align="stretch">
                 <FormControl isRequired>
-                  <FormLabel htmlFor="username" fontSize={{ base: "sm", md: "md" }}>
+                  <FormLabel
+                    htmlFor="username"
+                    fontSize={{ base: "sm", md: "md" }}
+                  >
                     Username
                   </FormLabel>
                   <Input
@@ -145,9 +187,12 @@ const Login = () => {
                     placeholder="Enter your username"
                   />
                 </FormControl>
-                
+
                 <FormControl isRequired>
-                  <FormLabel htmlFor="password" fontSize={{ base: "sm", md: "md" }}>
+                  <FormLabel
+                    htmlFor="password"
+                    fontSize={{ base: "sm", md: "md" }}
+                  >
                     Password
                   </FormLabel>
                   <InputGroup size={{ base: "md", md: "lg" }}>
@@ -166,15 +211,17 @@ const Login = () => {
                         variant="ghost"
                         size="sm"
                         onClick={togglePasswordVisibility}
-                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
                       />
                     </InputRightElement>
                   </InputGroup>
                 </FormControl>
 
-                <Button 
-                  type="submit" 
-                  colorScheme="blue" 
+                <Button
+                  type="submit"
+                  colorScheme="blue"
                   size={{ base: "md", md: "lg" }}
                   w="full"
                   mt={2}
@@ -183,16 +230,21 @@ const Login = () => {
                   Sign In
                 </Button>
 
-                <Flex mt={2} justifyContent="space-between" fontSize={{ base: "xs", sm: "sm" }}>
+                <Flex
+                  mt={2}
+                  justifyContent="space-between"
+                  fontSize={{ base: "xs", sm: "sm" }}
+                >
                   <Link to="/forgot-password">Forgot password?</Link>
                   <Link to="/register">Create account</Link>
                 </Flex>
               </VStack>
             </form>
           )}
-          
+
           <Text fontSize="xs" color="gray.500" textAlign="center" mt={6}>
-            © {new Date().getFullYear()} Employee Management System. All rights reserved.
+            © {new Date().getFullYear()} Employee Management System. All rights
+            reserved.
           </Text>
         </Box>
       </Flex>
