@@ -49,7 +49,7 @@ const Navbar = () => {
           boxSize={logoSize}
         />
         <Heading as="h1" size="md" fontWeight="bold" color="teal.500">
-          Employee Management
+          EMP Management
         </Heading>
       </Flex>
 
