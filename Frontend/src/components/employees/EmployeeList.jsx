@@ -93,7 +93,7 @@ const EmployeeList = () => {
   };
 
   return (
-    <Box p={5} maxW="full" mx="auto">
+    <Box p={5} maxW="7xl" mx="auto">
       <Flex mb={4} alignItems="center">
         <Heading as="h2" size="lg">
           Employee List
@@ -107,9 +107,9 @@ const EmployeeList = () => {
         >
           Add Employee
         </Button>
-        <Button colorScheme="red" onClick={handleLogout}>
+        {/* <Button colorScheme="red" onClick={handleLogout}>
           Logout
-        </Button>
+        </Button> */}
       </Flex>
 
       {error && (
@@ -156,7 +156,7 @@ const EmployeeList = () => {
             ))}
           </SimpleGrid>
 
-          <Flex mt={4} align="center">
+          {/* <Flex mt={4} align="center">
             <Text mr={2}>Items per page:</Text>
             <Select
               value={limit}
@@ -188,6 +188,30 @@ const EmployeeList = () => {
             >
               Next
             </Button>
+          </Flex> */}
+           <Flex mt={4} align="center" direction={{ base: "column", md: "row" }}>
+            <Flex align="center" mb={{ base: 3, md: 0 }}>
+              <Text mr={2}>Items per page:</Text>
+              <Select value={limit} onChange={handleLimitChange} width="80px" mr={4}>
+                {limitOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </Select>
+            </Flex>
+            <Text flexShrink={0} textAlign="center">
+              Page {currentPage} of {totalPages} (Total Employees: {totalEmployees})
+            </Text>
+            <Spacer />
+            <Flex>
+              <Button isDisabled={currentPage <= 1} onClick={() => handlePageChange(currentPage - 1)} mr={2}>
+                Previous
+              </Button>
+              <Button isDisabled={currentPage >= totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+                Next
+              </Button>
+            </Flex>
           </Flex>
         </>
       )}

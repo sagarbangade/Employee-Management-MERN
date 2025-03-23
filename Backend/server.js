@@ -12,7 +12,14 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors({ origin: ["https://employee-management-mern-phi.vercel.app"] })); // Enable CORS for all routes
+app.use(
+  cors({
+    origin: [
+      "https://employee-management-mern-phi.vercel.app",
+      "http://localhost:5173",
+    ],
+  })
+); // Enable CORS for all routes
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
 
