@@ -39,7 +39,7 @@ const EmployeeList = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
-  const limitOptions = [5, 10, 20];
+  const limitOptions = [6, 9, 18];
   const [limit, setLimit] = useState(limitOptions[1]); // Default limit to 10
 
   useEffect(() => {
