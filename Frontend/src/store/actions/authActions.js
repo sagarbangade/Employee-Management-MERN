@@ -1,10 +1,12 @@
+// src/store/actions/authActions.js
 import * as authService from '../../services/authService';
 
 export const registerUser = (userData) => async (dispatch) => {
     try {
         dispatch({ type: 'REGISTER_REQUEST' });
-        await authService.register(userData);
-        dispatch({ type: 'REGISTER_SUCCESS' }); // Or dispatch login directly after register if desired
+        const data = await authService.register(userData);
+        // **Critical: Dispatch REGISTER_SUCCESS with payload from authService.register response**
+        dispatch({ type: 'REGISTER_SUCCESS', payload: data });
     } catch (error) {
         dispatch({
             type: 'REGISTER_FAIL',
@@ -12,7 +14,6 @@ export const registerUser = (userData) => async (dispatch) => {
         });
     }
 };
-
 export const loginUser = (userData) => async (dispatch) => {
     try {
         dispatch({ type: 'LOGIN_REQUEST' });

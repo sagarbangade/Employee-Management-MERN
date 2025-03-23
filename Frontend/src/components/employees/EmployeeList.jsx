@@ -43,8 +43,18 @@ const EmployeeList = () => {
   const [limit, setLimit] = useState(limitOptions[1]); // Default limit to 10
 
   useEffect(() => {
+    console.log(
+      "EmployeeList useEffect triggered. isAuthenticated:",
+      isAuthenticated,
+      "page:",
+      page,
+      "limit:",
+      limit,
+      "searchQuery:",
+      searchQuery
+    ); // Added console.log
     if (!isAuthenticated) {
-      navigate("/login"); // Redirect to login if not authenticated
+      navigate("/login");
       return;
     }
     dispatch(getEmployees(page, limit, searchQuery));
