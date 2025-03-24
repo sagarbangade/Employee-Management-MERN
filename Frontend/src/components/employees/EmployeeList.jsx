@@ -53,6 +53,9 @@ const EmployeeList = () => {
       "searchQuery:",
       searchQuery
     ); // Added console.log
+
+
+    
     if (!isAuthenticated) {
       navigate("/login");
       return;
@@ -189,10 +192,15 @@ const EmployeeList = () => {
               Next
             </Button>
           </Flex> */}
-           <Flex mt={4} align="center" direction={{ base: "column", md: "row" }}>
+          <Flex mt={4} align="center" direction={{ base: "column", md: "row" }}>
             <Flex align="center" mb={{ base: 3, md: 0 }}>
               <Text mr={2}>Items per page:</Text>
-              <Select value={limit} onChange={handleLimitChange} width="80px" mr={4}>
+              <Select
+                value={limit}
+                onChange={handleLimitChange}
+                width="80px"
+                mr={4}
+              >
                 {limitOptions.map((option) => (
                   <option key={option} value={option}>
                     {option}
@@ -201,14 +209,22 @@ const EmployeeList = () => {
               </Select>
             </Flex>
             <Text flexShrink={0} textAlign="center">
-              Page {currentPage} of {totalPages} (Total Employees: {totalEmployees})
+              Page {currentPage} of {totalPages} (Total Employees:{" "}
+              {totalEmployees})
             </Text>
             <Spacer />
             <Flex>
-              <Button isDisabled={currentPage <= 1} onClick={() => handlePageChange(currentPage - 1)} mr={2}>
+              <Button
+                isDisabled={currentPage <= 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+                mr={2}
+              >
                 Previous
               </Button>
-              <Button isDisabled={currentPage >= totalPages} onClick={() => handlePageChange(currentPage + 1)}>
+              <Button
+                isDisabled={currentPage >= totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
                 Next
               </Button>
             </Flex>
