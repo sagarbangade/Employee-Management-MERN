@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react"; // Added useCallback import
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getEmployees,
@@ -55,6 +55,7 @@ const EmployeeList = () => {
     [setLimit, setPage] // Dependencies for useCallback
   );
 
+
   useEffect(() => {
     console.log(
       "EmployeeList useEffect triggered. isAuthenticated:",
@@ -80,6 +81,7 @@ const EmployeeList = () => {
     // Simplified dependency array - removed navigate, error, isAuthenticated, dispatch (dispatch is generally stable)
   }, [page, limit, searchQuery, dispatch, isAuthenticated]); // Simplified dependency array
 
+
   const handleDelete = (id) => {
     dispatch(deleteEmployee(id)).then(() => {
       dispatch(getEmployees(page, limit, searchQuery)); // Refresh employee list after delete
@@ -90,6 +92,7 @@ const EmployeeList = () => {
     setSearchQuery(e.target.value);
     setPage(1); // Reset page to 1 when searching
   };
+
 
   const handleLogout = () => {
     dispatch(logoutUser());
