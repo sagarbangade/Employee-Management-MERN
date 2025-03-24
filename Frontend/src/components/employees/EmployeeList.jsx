@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react"; // Added useCallback import
 import { useDispatch, useSelector } from "react-redux";
 import {
   getEmployees,
@@ -9,12 +9,6 @@ import { useNavigate, Link } from "react-router-dom";
 import {
   Box,
   Heading,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   Button,
   IconButton,
   Alert,
@@ -25,12 +19,13 @@ import {
   Input,
   Text,
   Spinner,
-  SimpleGrid, // Import SimpleGrid for card layout
+  SimpleGrid,
   Select,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, AddIcon, SearchIcon } from "@chakra-ui/icons";
 import { logoutUser } from "../../store/actions/authActions";
 import EmployeeCard from "./EmployeeCard"; // Import EmployeeCard component
+
 const EmployeeList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,6 +36,24 @@ const EmployeeList = () => {
   const [page, setPage] = useState(1);
   const limitOptions = [6, 9, 18];
   const [limit, setLimit] = useState(limitOptions[1]); // Default limit to 10
+
+  // Use useCallback to memoize handlePageChange and handleLimitChange
+  const handlePageChange = useCallback(
+    (newPage) => {
+      if (newPage >= 1 && newPage <= totalPages) {
+        setPage(newPage);
+      }
+    },
+    [totalPages, setPage] // Dependencies for useCallback
+  );
+
+  const handleLimitChange = useCallback(
+    (e) => {
+      setLimit(parseInt(e.target.value, 10));
+      setPage(1); // Reset page to 1 when limit changes
+    },
+    [setLimit, setPage] // Dependencies for useCallback
+  );
 
   useEffect(() => {
     console.log(
@@ -54,8 +67,6 @@ const EmployeeList = () => {
       searchQuery
     ); // Added console.log
 
-
-    
     if (!isAuthenticated) {
       navigate("/login");
       return;
@@ -66,7 +77,8 @@ const EmployeeList = () => {
         dispatch(clearError());
       }, 5000);
     }
-  }, [dispatch, isAuthenticated, navigate, error, page, limit, searchQuery]);
+    // Simplified dependency array - removed navigate, error, isAuthenticated, dispatch (dispatch is generally stable)
+  }, [page, limit, searchQuery, dispatch, isAuthenticated]); // Simplified dependency array
 
   const handleDelete = (id) => {
     dispatch(deleteEmployee(id)).then(() => {
@@ -77,17 +89,6 @@ const EmployeeList = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setPage(1); // Reset page to 1 when searching
-  };
-
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setPage(newPage);
-    }
-  };
-
-  const handleLimitChange = (e) => {
-    setLimit(parseInt(e.target.value, 10));
-    setPage(1); // Reset page to 1 when limit changes
   };
 
   const handleLogout = () => {
@@ -159,39 +160,6 @@ const EmployeeList = () => {
             ))}
           </SimpleGrid>
 
-          {/* <Flex mt={4} align="center">
-            <Text mr={2}>Items per page:</Text>
-            <Select
-              value={limit}
-              onChange={handleLimitChange}
-              width="80px"
-              mr={4}
-            >
-              {limitOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </Select>
-            <Text mr={4}>
-              Page {currentPage} of {totalPages} (Total Employees:{" "}
-              {totalEmployees})
-            </Text>
-            <Spacer />
-            <Button
-              isDisabled={currentPage <= 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-              mr={2}
-            >
-              Previous
-            </Button>
-            <Button
-              isDisabled={currentPage >= totalPages}
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              Next
-            </Button>
-          </Flex> */}
           <Flex mt={4} align="center" direction={{ base: "column", md: "row" }}>
             <Flex align="center" mb={{ base: 3, md: 0 }}>
               <Text mr={2}>Items per page:</Text>
